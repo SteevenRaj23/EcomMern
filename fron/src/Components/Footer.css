@@ -1,0 +1,7 @@
+/* Footer.css */
+@media (max-width: 768px) {
+    .footer-container {
+      display: none;
+    }
+  }
+  
