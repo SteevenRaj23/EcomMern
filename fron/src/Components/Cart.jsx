@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -7,8 +7,7 @@ export default function Cart({ cartvalue, setcartvalue }) {
   const [cartItems, setCartItems] = useState([]);
   const [quantities, setQuantities] = useState({});
 
-  let user = localStorage.getItem('user');
-  user = JSON.parse(user);
+  let user = JSON.parse(localStorage.getItem('user'));
   let userId = user.user._id;
 
   useEffect(() => {
@@ -16,7 +15,7 @@ export default function Cart({ cartvalue, setcartvalue }) {
       try {
         const response = await axios.get(`https://ecom-mern-seven.vercel.app/cartProduct/${userId}`);
         setCartItems(response.data);
-        setcartvalue(response.data.length)
+        setcartvalue(response.data.length);
         const initialQuantities = response.data.reduce((acc, item) => {
           acc[item.productId] = item.quantity;
           return acc;
@@ -27,15 +26,15 @@ export default function Cart({ cartvalue, setcartvalue }) {
       }
     }
     fetchData();
-  }, [deleteitem]);
+  }, [userId, setcartvalue]);
 
-  const getImage = (id) => {
+  const getImage = useCallback((id) => {
     try {
       return require(`../Asset/${id}.png`);
     } catch (error) {
-      return require("../Asset/66602d94694a904bfc6b9374.png");
+      return "https://via.placeholder.com/40"; // Placeholder image URL
     }
-  };
+  }, []);
 
   const navigate = useNavigate();
 
@@ -61,13 +60,14 @@ export default function Cart({ cartvalue, setcartvalue }) {
         quantity: quantities[item.productId] || item.quantity
       }));
 
-      const response = await axios.post(`http://localhost:5000/updateCart/${userId}`, {
+      const response = await axios.post(`https://ecom-mern-seven.vercel.app/updateCart/${userId}`, {
         cartItems: updatedItems
       });
 
       console.log("Cart updated successfully:", response.data);
 
-      const refetchedData = await axios.get(`http://localhost:5000/cartProduct/${userId}`);
+      // Refetch cart data after update
+      const refetchedData = await axios.get(`https://ecom-mern-seven.vercel.app/cartProduct/${userId}`);
       setCartItems(refetchedData.data);
 
     } catch (error) {
@@ -75,13 +75,25 @@ export default function Cart({ cartvalue, setcartvalue }) {
     }
   };
   
-   async function deleteitem(id){
-    console.log(userId)
-    console.log(id)
+  const deleteItem = async (id) => {
+    try {
+      const result = await axios.delete(`https://ecom-mern-seven.vercel.app/delete/${userId}/${id}`);
+      console.log(result);
 
-    const result=await axios.delete(`https://ecom-mern-seven.vercel.app/delete/${userId}/${id}`)
-    console.log(result)
-  }
+      // Refetch cart data after deletion
+      const updatedData = await axios.get(`https://ecom-mern-seven.vercel.app/cartProduct/${userId}`);
+      setCartItems(updatedData.data);
+      setcartvalue(updatedData.data.length);
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
+  };
+
+  const calculateSubtotal = () => {
+    return cartItems.reduce((total, item) => {
+      return total + item.price.slice(1) * (quantities[item.productId] || item.quantity);
+    }, 0).toFixed(2);
+  };
 
   return (
     <>
@@ -102,7 +114,7 @@ export default function Cart({ cartvalue, setcartvalue }) {
           <h6 style={{ marginLeft: "48px" }}>Product</h6>
           <h6>Price</h6>
           <h6>Quantity</h6>
-          <h6 style={{marginRight: "17px"}}>Subtotal</h6>
+          <h6 style={{ marginRight: "17px" }}>Subtotal</h6>
         </div>
 
         {cartItems.map((item, index) => (
@@ -131,7 +143,7 @@ export default function Cart({ cartvalue, setcartvalue }) {
                 src={getImage(`${item.productId}`)}
                 alt=""
                 style={{ width: "40px", height: "40px" }}
-              ></img>
+              />
               <h6
                 style={{
                   fontWeight: "500",
@@ -152,14 +164,14 @@ export default function Cart({ cartvalue, setcartvalue }) {
             >
               {item.price}
             </h6>
-            <div style={{width: "170px"}}>
-            <input
-              type='number'
-              style={{ width:"50px",border:"2px solid black",borderRadius:"5px" }}
-              value={quantities[item.productId] || item.quantity}
-              onChange={(e) => handleQuantityChange(item.productId, e.target.value)}
-            />
-              <DeleteIcon style={{marginLeft:"10px",marginBottom:"5px"}} onClick={()=>deleteitem(item.productId)}/>
+            <div style={{ width: "170px" }}>
+              <input
+                type='number'
+                style={{ width: "50px", border: "2px solid black", borderRadius: "5px" }}
+                value={quantities[item.productId] || item.quantity}
+                onChange={(e) => handleQuantityChange(item.productId, e.target.value)}
+              />
+              <DeleteIcon style={{ marginLeft: "10px", marginBottom: "5px", cursor: "pointer" }} onClick={() => deleteItem(item.productId)} />
             </div>
             <h6 style={{ paddingRight: "20px", fontWeight: "500", width: "70px" }}>
               ${item.price.slice(1) * (quantities[item.productId] || item.quantity)}
@@ -231,7 +243,7 @@ export default function Cart({ cartvalue, setcartvalue }) {
               width: "250px",
               borderRadius: "5px"
             }}
-          ></input>
+          />
           <button
             type="button"
             className="btn btn-primary"
@@ -271,7 +283,7 @@ export default function Cart({ cartvalue, setcartvalue }) {
             }}
           >
             <h6 style={{}}>Subtotal:</h6>
-            <h6>{/* Calculate subtotal */}</h6>
+            <h6>${calculateSubtotal()}</h6>
           </div>
           <div
             style={{
@@ -285,7 +297,7 @@ export default function Cart({ cartvalue, setcartvalue }) {
             }}
           >
             <h6 style={{}}>Shipping:</h6>
-            <h6>{/* Calculate shipping cost */}</h6>
+            <h6>Free Shipping</h6> {/* Assuming free shipping for simplicity */}
           </div>
           <div
             style={{
@@ -297,7 +309,7 @@ export default function Cart({ cartvalue, setcartvalue }) {
             }}
           >
             <h6 style={{}}>Total:</h6>
-            <h6>{/* Calculate total cost */}</h6>
+            <h6>${calculateSubtotal()}</h6> {/* Total is the same as subtotal in this case */}
           </div>
           <button
             type="button"
