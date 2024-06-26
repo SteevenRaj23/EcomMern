@@ -9,7 +9,7 @@ function About() {
         <div
           className="Container"
         >
-          <h1 style={{ marginBottom: "30px" }}>Our Story</h1>
+          <h1 className="Title" style={{ marginBottom: "30px" }}>Our Story</h1>
           <p className="Info">
             Launched in 2015, Exclusive is South Asia's premier online shopping
             marketplace with an active presence in Bangladesh. Supported by a
