@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Alert from "@mui/material/Alert";
+import './Contact.css'
 
 export default function Contact() {
   const initialFormData = {
@@ -34,7 +35,7 @@ export default function Contact() {
     <>
       {!submitted && (
         <>
-          <div className="container" style={{ display: "flex" }}>
+          <div className="container" >
             <div style={{ backgroundColor: "white", padding: "20px" }}>
               <div>
                 <div>
@@ -103,14 +104,10 @@ export default function Contact() {
               </div>
             </div>
             <div
-              style={{
-                marginLeft: "50px",
-                backgroundColor: "white",
-                padding: "20px",
-              }}
+              className="Formcontainer"
             >
               <form onSubmit={handleSubmit}>
-                <div style={{ display: "flex", gap: "15px" }}>
+                <div className="Fields" >
                   <input
                     type="text"
                     name="name"
@@ -158,26 +155,15 @@ export default function Contact() {
                     name="message"
                     placeholder="Your Message"
                     id="comment"
-                    style={{
-                      backgroundColor: "#F5F5F5",
-                      border: "none",
-                      width: "630px",
-                      height: "200px",
-                    }}
+                    className="Message"
                     onChange={handleChange}
                     value={formData.message}
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  className="btn btn-primary"
-                  style={{
-                    marginTop: "20px",
-                    backgroundColor: "#DB4444",
-                    border: "none",
-                    width: "150px",
-                    marginLeft: "480px",
-                  }}
+                  className="btn btn-primary Sendmsg"
+                  style={{backgroundColor: "#db4444",border:"none"}}
                 >
                   Send Message
                 </button>

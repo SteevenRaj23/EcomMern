@@ -1,20 +1,16 @@
 import React from "react";
+import './About.css'
+
 
 function About() {
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div className="About">
         <div
-          style={{
-            minWidth: "400px",
-            marginLeft: "30px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
+          className="Container"
         >
           <h1 style={{ marginBottom: "30px" }}>Our Story</h1>
-          <p style={{ fontSize: "18px", fontWeight: "400",width:"500px" }}>
+          <p className="Info">
             Launched in 2015, Exclusive is South Asia's premier online shopping
             marketplace with an active presence in Bangladesh. Supported by a
             wide range of tailored marketing, data, and service solutions,
@@ -27,21 +23,15 @@ function About() {
             ranging from consumer electronics to household items.
           </p>
         </div>
-        <div style={{ marginTop: "20px",marginLeft:"80px" }}>
+        <div  className="Imgtag" >
           <img
-            style={{ width: "600px", height: "500px" }}
+            className="Img"
             src="https://th.bing.com/th/id/OIP.L3nRdDxJ52HPH2u-LooaFAHaIR?rs=1&pid=ImgDetMain"
           />
         </div>
       </div>
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "80px",
-          marginBottom: "50px",
-          marginTop: "50px",
-        }}
+       className="footer"
       >
         <div style={{ textAlign: "center", marginBottom: "20px" }}>
           <img src="s1.png" size={50} />

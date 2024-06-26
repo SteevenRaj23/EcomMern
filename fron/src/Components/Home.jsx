@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "../Reuse/Card";
 import axios from "axios";
+import './Home.css'
 import {Navigate, useNavigate} from 'react-router-dom'
 import Display from "./Display";
 
@@ -64,26 +65,23 @@ const Home = () => {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img
-              className="d-block w-100"
+              className="d-block w-100 Img"
               src="Untitled.png"
               alt="First slide"
-              style={{ objectFit: "contain", width: "800px", height: "300px" }}
             />
           </div>
-          <div className="carousel-item">
+          <div className="carousel-item ">
             <img
-              className="d-block w-100"
+              className="d-block w-100 Img"
               src="https://img.freepik.com/premium-vector/best-season-sale-banner-design-template_2239-1175.jpg?w=826"
               alt="Second slide"
-              style={{ objectFit: "contain", width: "800px", height: "300px" }}
             />
           </div>
           <div className="carousel-item">
             <img
-              className="d-block w-100"
+              className="d-block w-100 Img"
               src="https://img.freepik.com/free-vector/flat-horizontal-sale-banner-template-with-photo_23-2149000923.jpg?w=826&t=st=1718019966~exp=1718020566~hmac=c8d8bfc6b35fbe0ba4d6e7870d5e59fd90b5e84e5129c7f67d1b15d250b02fd1"
               alt="Third slide"
-              style={{ objectFit: "contain", width: "800px", height: "300px" }}
             />
           </div>
         </div>
@@ -112,7 +110,7 @@ const Home = () => {
           <span className="sr-only">Next</span>
         </a>
       </div>
-      <div style={{ marginLeft: "80px", marginTop: "50px" }}>
+      <div className="Heading" >
         <svg
           width="10"
           height="40"
@@ -135,12 +133,7 @@ const Home = () => {
         <h4>Best Selling Products</h4>
       </div>
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "50px",
-          marginTop: "40px",
-        }}
+        className="carddetails"
       >
         {data.slice(0, 4).map((ele, index) => (
           <Card
@@ -152,7 +145,7 @@ const Home = () => {
           />
         ))}
       </div>
-      <div style={{ marginLeft: "80px", marginTop: "50px" }}>
+      <div  className="Heading">
         <svg
           width="10"
           height="40"
@@ -175,12 +168,7 @@ const Home = () => {
         <h4>Explore Our Products</h4>
       </div>
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "50px",
-          marginTop: "40px",
-        }}
+         className="carddetails"
       >
            {data.slice(4,8).map((ele, index) => (
           <Card
@@ -194,12 +182,7 @@ const Home = () => {
        
       </div>
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "50px",
-          marginTop: "40px",
-        }}
+         className="carddetails"
       >
            {data.slice(8).map((ele, index) => (
           <Card
@@ -213,13 +196,7 @@ const Home = () => {
        
       </div>
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "80px",
-          marginBottom: "80px",
-          cursor:"pointer"
-        }}
+        className="Support"
       >
         <img src="support.png" alt="" style={{ width: "50%" }}></img>
       </div>

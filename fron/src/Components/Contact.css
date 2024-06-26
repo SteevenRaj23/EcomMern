@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+}
+
+.Formcontainer {
+  margin-left: 50px;
+  background-color: white;
+  padding: 20px;
+}
+.Fields {
+  display: flex;
+  gap: 15px;
+}
+
+.Message {
+  background-color: #f5f5f5;
+  border: none;
+  width: 630px;
+  height: 200px;
+}
+
+.sendmsg {
+  margin-top: 20px;
+  background-color: #db4444;
+  border: none;
+  width: 150px;
+  margin-left: 480px;
+}
+
+@media (max-width: 576px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .Formcontainer {
+    margin-left: 0px;
+    background-color: white;
+    padding: 20px;
+  }
+
+  .Fields {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .Message {
+    background-color: #f5f5f5;
+    border: none;
+    width: 255px;
+    height: 200px;
+  }
+  .sendmsg {
+    margin-top: 20px;
+    width: 130px;
+    margin-left: 0px;
+  }
+}
