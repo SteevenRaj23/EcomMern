@@ -11,7 +11,7 @@ export default function Signup() {
     const navigate=useNavigate();
 
     function verify(){
-       axios.post('http://localhost:5000/register',{name:Name,email:User,password:pass})
+       axios.post('https://ecom-mern-seven.vercel.app/register',{name:Name,email:User,password:pass})
        .then((res)=>{
         console.log(res.data)
         if(res.data){

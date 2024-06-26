@@ -78,7 +78,7 @@ export default function Navbar({cartvalue,setcartvalue}) {
       if(auth){
       console.log(JSON.parse(auth).user._id)
       const _id=JSON.parse(auth).user._id;
-      axios.get(`http://localhost:5000/cartProduct/${_id}`)
+      axios.get(`https://ecom-mern-seven.vercel.app/cartProduct/${_id}`)
       .then((res)=>{
           console.log(res.data.length)
           setcount(res.data.length)

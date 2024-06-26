@@ -16,7 +16,7 @@ export default function Display({ cartvalue, setcartvalue }) {
   let navi=useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/display/${id}`).then((res) => {
+    axios.get(`https://ecom-mern-seven.vercel.app//display/${id}`).then((res) => {
       console.log(res.data);
       setdata(res.data);
     });
@@ -47,7 +47,7 @@ export default function Display({ cartvalue, setcartvalue }) {
     setsuccess(true);
     setTimeout(()=>{setsuccess(false)},1000)
     axios
-      .post("http://localhost:5000/cartProduct", {
+      .post("https://ecom-mern-seven.vercel.app/cartProduct", {
         userId: user.user._id,
         productId: data._id,
         title: data.title,
@@ -65,7 +65,7 @@ export default function Display({ cartvalue, setcartvalue }) {
       let user = localStorage.getItem("user");
       user = JSON.parse(user);
       let iid = user.user._id;
-      axios.get(`http://localhost:5000/cartProduct/${iid}`).then((res) => {
+      axios.get(`https://ecom-mern-seven.vercel.app/cartProduct/${iid}`).then((res) => {
         console.log(res.data.length);
         setcartvalue(res.data.length);
       });

@@ -13,14 +13,14 @@ export default function Login({cartvalue,setcartvalue}) {
 
     const navi=useNavigate();
     function verify(){
-       axios.post('http://localhost:5000/login',{email:User,password:pass})
+       axios.post('https://ecom-mern-seven.vercel.app/login',{email:User,password:pass})
        .then((res)=>{
 
         console.log(res.data.user._id)
         if(res.data.user){
           localStorage.setItem('user',JSON.stringify(res.data))
           navi('/')
-             axios.get(`http://localhost:5000/cartProduct/${res.data.user._id}`).then((res) => {
+             axios.get(`https://ecom-mern-seven.vercel.app/cartProduct/${res.data.user._id}`).then((res) => {
              console.log(res.data.length);
              setcartvalue(res.data.length);
             });  

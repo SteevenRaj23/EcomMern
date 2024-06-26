@@ -14,7 +14,7 @@ export default function Cart({ cartvalue, setcartvalue }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`http://localhost:5000/cartProduct/${userId}`);
+        const response = await axios.get(`https://ecom-mern-seven.vercel.app/cartProduct/${userId}`);
         setCartItems(response.data);
         setcartvalue(response.data.length)
         const initialQuantities = response.data.reduce((acc, item) => {
@@ -79,7 +79,7 @@ export default function Cart({ cartvalue, setcartvalue }) {
     console.log(userId)
     console.log(id)
 
-    const result=await axios.delete(`http://localhost:5000/delete/${userId}/${id}`)
+    const result=await axios.delete(`https://ecom-mern-seven.vercel.app/delete/${userId}/${id}`)
     console.log(result)
   }
 
