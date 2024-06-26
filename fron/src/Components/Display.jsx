@@ -16,7 +16,7 @@ export default function Display({ cartvalue, setcartvalue }) {
   let navi=useNavigate();
 
   useEffect(() => {
-    axios.get(`https://ecom-mern-seven.vercel.app//display/${id}`).then((res) => {
+    axios.get(`https://ecom-mern-seven.vercel.app/display/${id}`).then((res) => {
       console.log(res.data);
       setdata(res.data);
     });
