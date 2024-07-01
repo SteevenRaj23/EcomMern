@@ -32,7 +32,7 @@ export default function Cart({ cartvalue, setcartvalue }) {
     try {
       return require(`../Asset/${id}.png`);
     } catch (error) {
-      return "https://via.placeholder.com/40"; // Placeholder image URL
+      return "https://via.placeholder.com/40"; 
     }
   }, []);
 
@@ -59,14 +59,15 @@ export default function Cart({ cartvalue, setcartvalue }) {
         productId: item.productId,
         quantity: quantities[item.productId] || item.quantity
       }));
-
+      
+      console.log(updatedItems)
       const response = await axios.post(`https://ecom-mern-seven.vercel.app/updateCart/${userId}`, {
         cartItems: updatedItems
       });
 
       console.log("Cart updated successfully:", response.data);
 
-      // Refetch cart data after update
+
       const refetchedData = await axios.get(`https://ecom-mern-seven.vercel.app/cartProduct/${userId}`);
       setCartItems(refetchedData.data);
 
@@ -80,7 +81,6 @@ export default function Cart({ cartvalue, setcartvalue }) {
       const result = await axios.delete(`https://ecom-mern-seven.vercel.app/delete/${userId}/${id}`);
       console.log(result);
 
-      // Refetch cart data after deletion
       const updatedData = await axios.get(`https://ecom-mern-seven.vercel.app/cartProduct/${userId}`);
       setCartItems(updatedData.data);
       setcartvalue(updatedData.data.length);

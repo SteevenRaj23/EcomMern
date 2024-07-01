@@ -39,6 +39,11 @@
 
 }
 
+
+.formdetails{
+     margin: 100px ;
+}
+
 @media (max-width: 576px) {
   .Container {
     min-width: 0px;
@@ -84,5 +89,8 @@
   text-align: center;   
 }
 
+.formdetails{
+    margin: 30px ;
+}
 
 }

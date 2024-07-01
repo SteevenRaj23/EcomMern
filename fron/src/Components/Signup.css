@@ -1,0 +1,27 @@
+.box{
+     margin-top: 50px;
+     margin-bottom: 50px;
+     display: flex;
+}
+
+ .Image{
+    height: 481px;
+     width: 605px;
+     margin-top: 60px; 
+    }
+
+@media (max-width: 576px) {
+    .box{
+        margin-top: 0px;
+        margin-bottom: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+   }
+   .Image{
+    height: 200px;
+     width: 200px;
+     margin-top: 20px; 
+    }
+}

@@ -141,11 +141,49 @@ app.delete("/delete/:userId/:productId",async(req,resp)=>{
 })
 
 
+app.post("/updateCart/:userId", async (req, res) => {
+    const userId = req.params.userId;
+    const { cartItems } = req.body; 
 
+    if (userId.length < 24) {
+        return res.status(400).json({ error: 'Invalid user ID' });
+    }
 
+    try {
+        for (const item of cartItems) {
+            const { productId, quantity } = item;
 
+            if (productId.length < 24) {
+                return res.status(400).json({ error: 'Invalid product ID' });
+            }
 
+            if (quantity <= 0) {
+               
+                await cartProduct.deleteOne({ userId, productId });
+            } else {
+                
+                const existingCartItem = await cartProduct.findOne({ userId, productId });
+                if (existingCartItem) {
+                    existingCartItem.quantity = quantity;
+                    await existingCartItem.save();
+                } else {
+                  
+                    const newCartItem = new cartProduct({
+                        userId,
+                        productId,
+                        quantity
+                    });
+                    await newCartItem.save();
+                }
+            }
+        }
 
+        res.json({ message: "Cart updated successfully" });
+    } catch (error) {
+        console.error("Error updating cart:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
 
 
 app.listen(5000, () => {

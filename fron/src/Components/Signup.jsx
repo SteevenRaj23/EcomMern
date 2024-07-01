@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom"
-
+import './Signup.css'
 
 export default function Signup() {
     const[User,setUser]=useState([]);
@@ -25,11 +25,11 @@ export default function Signup() {
 
   return (
     <>
-      <div style={{ marginTop: "50px", marginBottom: "50px", display: "flex" }}>
+      <div className="box" >
         <img
           src="image.png"
           alt="logo"
-          style={{ height: "481px", width: "605px",marginTop: "60px" }}
+          className="Image"
         ></img>
         <div style={{ margin: "100px" }}>
           <h1 style={{marginBottom:"20px"}}>Create an account</h1>
