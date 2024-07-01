@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Card from "../Reuse/Card";
 import axios from "axios";
-import './Home.css'
-import {Navigate, useNavigate} from 'react-router-dom'
+import "./Home.css";
+import { Navigate, useNavigate } from "react-router-dom";
 import Display from "./Display";
 
 const Home = () => {
   const [data, setdata] = useState([]);
 
   useEffect(() => {
-    axios.get("https://ecom-mern-seven.vercel.app/displayProduct").then((res) => {
-      console.log(res);
-      setdata(res.data);
-    });
+    axios
+      .get("https://ecom-mern-seven.vercel.app/displayProduct")
+      .then((res) => {
+        console.log(res);
+        setdata(res.data);
+      });
   }, []);
 
   useEffect(() => {
@@ -26,19 +28,26 @@ const Home = () => {
       });
     }
   }, []);
-  
-  let navigate=useNavigate();
 
-  function display(ele){
-    const user=localStorage.getItem('user')
-    if(user){
-    console.log(user)
-    navigate(`/Display/${ele._id}`)
-    }
-    else{
-      navigate('/login')
+  let navigate = useNavigate();
+
+  function display(ele) {
+    const user = localStorage.getItem("user");
+    if (user) {
+      console.log(user);
+      navigate(`/Display/${ele._id}`);
+    } else {
+      navigate("/login");
     }
   }
+
+  const getImage = (id) => {
+    try {
+      return require(`../Asset/${id}.png`);
+    } catch (error) {
+      return require("../Asset/66602d94694a904bfc6b9374.png");
+    }
+  };
 
   return (
     <>
@@ -110,7 +119,7 @@ const Home = () => {
           <span className="sr-only">Next</span>
         </a>
       </div>
-      <div className="Heading" >
+      <div className="Heading">
         <svg
           width="10"
           height="40"
@@ -132,20 +141,20 @@ const Home = () => {
         </span>
         <h4>Best Selling Products</h4>
       </div>
-      <div
-        className="carddetails"
-      >
+      <div className="carddetails">
         {data.slice(0, 4).map((ele, index) => (
           <Card
-            img={`${index}.png`}
+            img={getImage(ele._id)}
             title={ele.title}
             price={ele.price}
-            rating={ele.rating} 
-            onclick={()=>{display(ele)}}
+            rating={ele.rating}
+            onclick={() => {
+              display(ele);
+            }}
           />
         ))}
       </div>
-      <div  className="Heading">
+      <div className="Heading">
         <svg
           width="10"
           height="40"
@@ -167,37 +176,33 @@ const Home = () => {
         </span>
         <h4>Explore Our Products</h4>
       </div>
-      <div
-         className="carddetails"
-      >
-           {data.slice(4,8).map((ele, index) => (
+      <div className="carddetails">
+        {data.slice(4, 8).map((ele, index) => (
           <Card
-            img={`${index+4}.png`}
+            img={getImage(ele._id)}
             title={ele.title}
             price={ele.price}
             rating={ele.rating}
-            onclick={()=>{display(ele)}}
+            onclick={() => {
+              display(ele);
+            }}
           />
         ))}
-       
       </div>
-      <div
-         className="carddetails"
-      >
-           {data.slice(8).map((ele, index) => (
+      <div className="carddetails">
+        {data.slice(8).map((ele, index) => (
           <Card
-            img={`${index+8}.png`}
+            img={getImage(ele._id)}
             title={ele.title}
             price={ele.price}
             rating={ele.rating}
-            onclick={()=>{display(ele)}}
+            onclick={() => {
+              display(ele);
+            }}
           />
         ))}
-       
       </div>
-      <div
-        className="Support"
-      >
+      <div className="Support">
         <img src="support.png" alt="" style={{ width: "50%" }}></img>
       </div>
     </>
