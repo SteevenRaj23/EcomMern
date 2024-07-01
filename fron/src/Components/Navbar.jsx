@@ -216,8 +216,8 @@ export default function Navbar({cartvalue,setcartvalue}) {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                   style={{ marginLeft: "10px" }}
-                  onMouseOver={() => setisopen(true)}
-                  onMouseLeave={() => setisopen(false)}
+                  // onMouseOver={() => setisopen(true)}
+                  // onMouseLeave={() => setisopen(false)}
                 >
                   <rect width="32" height="32" rx="16" fill="#DB4444" />
                   <path

@@ -9,17 +9,22 @@ import Navbar from "./Navbar";
 export default function Display({ cartvalue, setcartvalue }) {
   const [data, setdata] = useState();
   const [cart, setcart] = useState(0);
-  const [success,setsuccess]=useState(false);
+  const [success, setsuccess] = useState(false);
+  const [selectedSize, setSelectedSize] = useState("");
+
+  const sizes = ["XS", "S", "M", "L", "XL"];
 
   const { id } = useParams();
 
-  let navi=useNavigate();
+  let navi = useNavigate();
 
   useEffect(() => {
-    axios.get(`https://ecom-mern-seven.vercel.app/display/${id}`).then((res) => {
-      console.log(res.data);
-      setdata(res.data);
-    });
+    axios
+      .get(`https://ecom-mern-seven.vercel.app/display/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        setdata(res.data);
+      });
   }, []);
 
   var rating = 0;
@@ -45,7 +50,9 @@ export default function Display({ cartvalue, setcartvalue }) {
     user = JSON.parse(user);
     console.log(data);
     setsuccess(true);
-    setTimeout(()=>{setsuccess(false)},1000)
+    setTimeout(() => {
+      setsuccess(false);
+    }, 1000);
     axios
       .post("https://ecom-mern-seven.vercel.app/cartProduct", {
         userId: user.user._id,
@@ -65,10 +72,12 @@ export default function Display({ cartvalue, setcartvalue }) {
       let user = localStorage.getItem("user");
       user = JSON.parse(user);
       let iid = user.user._id;
-      axios.get(`https://ecom-mern-seven.vercel.app/cartProduct/${iid}`).then((res) => {
-        console.log(res.data.length);
-        setcartvalue(res.data.length);
-      });
+      axios
+        .get(`https://ecom-mern-seven.vercel.app/cartProduct/${iid}`)
+        .then((res) => {
+          console.log(res.data.length);
+          setcartvalue(res.data.length);
+        });
     }
     fetchdata();
   }, [cart]);
@@ -108,18 +117,30 @@ export default function Display({ cartvalue, setcartvalue }) {
               style={{ width: "130px", height: "110px" }}
             ></img>
           </div>
-          <div >
-            {success &&
-            <div style={{ position: "absolute",zIndex:"10",marginTop:"200px",marginLeft:"130px" }}>
-            <Alert variant="filled" severity="success" >
-               Successfully Added to Cart
-            </Alert>
-            </div>
-            }
+          <div>
+            {success && (
+              <div
+                style={{
+                  position: "absolute",
+                  zIndex: "10",
+                  marginTop: "200px",
+                  marginLeft: "130px",
+                }}
+              >
+                <Alert variant="filled" severity="success">
+                  Successfully Added to Cart
+                </Alert>
+              </div>
+            )}
             <img
               src={imgSrc}
               alt=""
-              style={{ position: "relative",zIndex:"-1", height: "470px", width: "500px" }}
+              style={{
+                position: "relative",
+                zIndex: "-1",
+                height: "470px",
+                width: "500px",
+              }}
             ></img>
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
@@ -134,76 +155,51 @@ export default function Display({ cartvalue, setcartvalue }) {
               ))}
             </div>
             <h4>{data.price}</h4>
-            <div
-              style={{
-                display: "flex",
-                gap: "20px",
-                marginTop: "20px",
-                borderTop: "1px solid grey",
-              }}
-            >
-              <h5 style={{ marginTop: "10px" }}>Size:</h5>
-              <span
+            {data.dress && (
+              <div
                 style={{
-                  marginTop: "10px",
-                  border: "1px black",
-                  padding: "5px",
-                  boxShadow:
-                    " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                  display: "flex",
+                  gap: "20px",
+                  marginTop: "20px",
+                  borderTop: "1px solid grey",
                 }}
               >
-                XS
-              </span>
-              <span
-                style={{
-                  marginTop: "10px",
-                  padding: "5px",
-                  boxShadow:
-                    " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-                }}
-              >
-                S
-              </span>
-              <span
-                style={{
-                  marginTop: "10px",
-                  padding: "5px",
-                  boxShadow:
-                    " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-                }}
-              >
-                M
-              </span>
-              <span
-                style={{
-                  marginTop: "10px",
-                  padding: "5px",
-                  boxShadow:
-                    " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-                }}
-              >
-                L
-              </span>
-              <span
-                style={{
-                  marginTop: "10px",
-                  padding: "5px",
-                  boxShadow:
-                    " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-                }}
-              >
-                XL
-              </span>
-            </div>
+                <h5 style={{ marginTop: "10px" }}>Size:</h5>
+                {sizes.map((size) => (
+                  <span
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    style={{
+                      marginTop: "10px",
+                      padding: "5px",
+                      boxShadow:
+                        "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                      cursor: "pointer",
+                      color: selectedSize === size ? "red" : "black",
+                      border:
+                        selectedSize === size
+                          ? "1px solid red"
+                          : "1px solid black",
+                    }}
+                  >
+                    {size}
+                  </span>
+                ))}
+              </div>
+            )}
             <div style={{ margin: "20px", display: "flex", gap: "10px" }}>
               <button
                 type="button"
                 class="btn btn-danger"
-                onClick={()=>navi('/billing')}
+                onClick={() => navi("/billing")}
               >
                 Buy Now
               </button>
-              <button type="button" class="btn btn-danger" onClick={() => ADD()}>
+              <button
+                type="button"
+                class="btn btn-danger"
+                onClick={() => ADD()}
+              >
                 Add to Cart
               </button>
             </div>

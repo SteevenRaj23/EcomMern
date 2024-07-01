@@ -34,7 +34,9 @@ export default function Login({cartvalue,setcartvalue}) {
        })
     }
     
-
+  function login(){
+    navi('/Signup')
+  }
 
   return (
     <>
@@ -79,13 +81,16 @@ export default function Login({cartvalue,setcartvalue}) {
             <div style={{marginLeft:"10px",marginTop:"20px"}}>
             <button type="button" class="btn btn-danger" style={{width:"100px"}} onClick={verify}>Log in</button>
             <span style={{marginLeft:"100px",color:"#DB4444"}}>Forget Password?</span>
+          
             {show &&
             <div style={{marginTop:"30px",position:"absolute",marginLeft:"50px"}}>
               <Alert severity="error">Invalid credentials</Alert>
             </div>
              }
+              
             </div>
           </div>
+          <button type="button" class="btn btn-danger" style={{width:"320px",marginTop:"10px",marginLeft:"10px",backgroundColor:"white",color:"red"}} onClick={login}>Create Account</button>
         </div>
       </div>
     </>
