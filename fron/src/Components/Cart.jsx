@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function Cart({ cartvalue, setcartvalue }) {
+export default function Cart({ cartvalue, setcartvalue,amount, setAmount }) {
   const [cartItems, setCartItems] = useState([]);
   const [quantities, setQuantities] = useState({});
 
@@ -42,7 +42,8 @@ export default function Cart({ cartvalue, setcartvalue }) {
     navigate('/');
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = (val) => {
+    setAmount(val)
     navigate('/billing');
   };
 
@@ -321,7 +322,7 @@ export default function Cart({ cartvalue, setcartvalue }) {
               width: "220px",
               marginLeft: "40px",
             }}
-            onClick={handleCheckout}
+            onClick={()=>handleCheckout(calculateSubtotal())}
           >
             Proceed to Checkout
           </button>

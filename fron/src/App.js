@@ -12,9 +12,11 @@ import Display from "./Components/Display";
 import Cart from "./Components/Cart"
 import Checkout from "./Components/Checkout";
 import Contact from "./Components/Contact";
+import Payment from "./Components/Payment";
 
 function App() {
   const[cartvalue,setcartvalue]=useState();
+  const [amount, setAmount] = useState(100); 
  
  
   return (
@@ -27,10 +29,11 @@ function App() {
           <Route path="/login" element={<Login cartvalue={cartvalue} setcartvalue={setcartvalue}/>} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/About" element={<About />} />
-          <Route path="/display/:id" element={ <Display cartvalue={cartvalue} setcartvalue={setcartvalue} />} />
-          <Route path="/cart" element={ <Cart cartvalue={cartvalue} setcartvalue={setcartvalue}/>} />
+          <Route path="/display/:id" element={ <Display cartvalue={cartvalue} setcartvalue={setcartvalue} amount={amount} setAmount={setAmount}/>} />
+          <Route path="/cart" element={ <Cart cartvalue={cartvalue} setcartvalue={setcartvalue}  amount={amount} setAmount={setAmount}/>} />
           <Route path="/billing" element={<Checkout/> } />
           <Route path="/Contact" element={  <Contact/> } />
+          <Route path="/Payment" element={  <Payment amount={amount} setAmount={setAmount}/> } />
         </Routes>
         <Footer />
       </BrowserRouter>

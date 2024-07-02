@@ -6,7 +6,7 @@ import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import Navbar from "./Navbar";
 
-export default function Display({ cartvalue, setcartvalue }) {
+export default function Display({ cartvalue, setcartvalue,amount,setAmount }) {
   const [data, setdata] = useState();
   const [cart, setcart] = useState(0);
   const [success, setsuccess] = useState(false);
@@ -82,6 +82,11 @@ export default function Display({ cartvalue, setcartvalue }) {
     fetchdata();
   }, [cart]);
 
+   function buyNow(){
+    console.log(data.price.slice(1))
+    setAmount(data.price.slice(1))
+     navi("/billing")
+   }
   return (
     <>
       {data && (
@@ -191,7 +196,7 @@ export default function Display({ cartvalue, setcartvalue }) {
               <button
                 type="button"
                 class="btn btn-danger"
-                onClick={() => navi("/billing")}
+                onClick={buyNow}
               >
                 Buy Now
               </button>
