@@ -16,7 +16,7 @@ import Payment from "./Components/Payment";
 
 function App() {
   const[cartvalue,setcartvalue]=useState();
-  const [amount, setAmount] = useState(100); 
+  const [amount, setAmount] = useState(0); 
  
  
   return (

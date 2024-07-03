@@ -1,0 +1,29 @@
+.responsive-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    width: 100%;            
+  }
+  
+  .responsive-image {
+    max-height: 48px;           
+    width: 100%;               
+    object-fit: cover;          
+    cursor: pointer;            
+    max-width: 100%;            
+  }
+  
+
+  @media (min-width: 768px) {
+    .responsive-image {
+      max-height: 100px;      
+    }
+  }
+  
+
+  @media (max-width: 767px) {
+    .responsive-image {
+      max-height: 48px;        
+    }
+  }
+  
