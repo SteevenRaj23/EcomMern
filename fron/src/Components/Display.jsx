@@ -132,22 +132,22 @@ export default function Display({
             ) : (
               <>
                 <img
-                  src={data.image}
+                  src={imgSrc}
                   alt=""
                   style={{ width: "130px", height: "110px" }}
                 ></img>
                 <img
-                  src={data.image}
+                  src={imgSrc}
                   alt=""
                   style={{ width: "130px", height: "110px" }}
                 ></img>
                 <img
-                  src={data.image}
+                  src={imgSrc}
                   alt=""
                   style={{ width: "130px", height: "110px" }}
                 ></img>
                 <img
-                  src={data.image}
+                  src={imgSrc}
                   alt=""
                   style={{ width: "130px", height: "110px" }}
                 ></img>
