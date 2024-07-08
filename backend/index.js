@@ -8,6 +8,14 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const Prod=require('./db/Prod')
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+    cloud_name: 'dhjdvfk3t',
+    api_key: '383646353243778',
+    api_secret: '8OfXx5QL4_CQOu561_P63HOR6g8'
+});
+
 
 const app = express();
 
@@ -190,7 +198,7 @@ app.post("/updateCart/:userId", async (req, res) => {
     }
 });
 
-// Endpoint to upload product with an image
+
 app.post('/addProduct', upload.single('image'), async (req, res) => {
     const { title, price, rating } = req.body;
 
@@ -199,23 +207,59 @@ app.post('/addProduct', upload.single('image'), async (req, res) => {
     }
 
     try {
-        // Construct the image path
-        const imagePath = req.file ? req.file.path : null;
+        let imageUrl = null;
 
-        // Create a new product instance
+        if (req.file) {
+            // Upload the image to Cloudinary
+            const result = await cloudinary.uploader.upload(req.file.path, {
+                folder: "products", // Optional: specify a folder in your Cloudinary account
+            });
+
+            // Get the URL of the uploaded image
+            imageUrl = result.secure_url;
+
+            // Optionally, delete the file from the local server after uploading to Cloudinary
+            fs.unlinkSync(req.file.path);
+        }
+
+        // Create a new product with the image URL
         const newProduct = new Product({
             title,
             price,
             rating,
-            image: imagePath,
+            image: imageUrl,
         });
 
-        // Save the product to the database
         const savedProduct = await newProduct.save();
 
         res.status(201).json({ message: 'Product added successfully', product: savedProduct });
     } catch (error) {
         console.error('Error adding product:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
+
+app.get("/searchProduct", async (req, res) => {
+    const { title } = req.query;
+
+    if (!title) {
+        return res.status(400).json({ error: 'Title parameter is required' });
+    }
+
+    try {
+    
+        const products = await Product.find({ title: { $regex: title, $options: 'i' } });
+
+        if (products.length === 0) {
+            return res.status(404).json({ message: 'No products found matching the search criteria' });
+        }
+
+        res.json(products);
+    } catch (error) {
+        console.error('Error searching products:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

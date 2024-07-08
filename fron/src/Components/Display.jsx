@@ -6,7 +6,12 @@ import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import Navbar from "./Navbar";
 
-export default function Display({ cartvalue, setcartvalue,amount,setAmount }) {
+export default function Display({
+  cartvalue,
+  setcartvalue,
+  amount,
+  setAmount,
+}) {
   const [data, setdata] = useState();
   const [cart, setcart] = useState(0);
   const [success, setsuccess] = useState(false);
@@ -82,11 +87,11 @@ export default function Display({ cartvalue, setcartvalue,amount,setAmount }) {
     fetchdata();
   }, [cart]);
 
-   function buyNow(){
-    console.log(data.price.slice(1))
-    setAmount(data.price.slice(1))
-     navi("/billing")
-   }
+  function buyNow() {
+    console.log(data.price.slice(1));
+    setAmount(data.price.slice(1));
+    navi("/billing");
+  }
   return (
     <>
       {data && (
@@ -101,26 +106,53 @@ export default function Display({ cartvalue, setcartvalue,amount,setAmount }) {
           <div
             style={{ display: "flex", flexDirection: "column", gap: "10px" }}
           >
-            <img
-              src={imgSrc}
-              alt=""
-              style={{ width: "130px", height: "110px" }}
-            ></img>
-            <img
-              src={imgSrc}
-              alt=""
-              style={{ width: "130px", height: "110px" }}
-            ></img>
-            <img
-              src={imgSrc}
-              alt=""
-              style={{ width: "130px", height: "110px" }}
-            ></img>
-            <img
-              src={imgSrc}
-              alt=""
-              style={{ width: "130px", height: "110px" }}
-            ></img>
+            {data.image ? (
+              <>
+                <img
+                  src={data.image}
+                  alt=""
+                  style={{ width: "130px", height: "110px" }}
+                ></img>
+                <img
+                  src={data.image}
+                  alt=""
+                  style={{ width: "130px", height: "110px" }}
+                ></img>
+                <img
+                  src={data.image}
+                  alt=""
+                  style={{ width: "130px", height: "110px" }}
+                ></img>
+                <img
+                  src={data.image}
+                  alt=""
+                  style={{ width: "130px", height: "110px" }}
+                ></img>
+              </>
+            ) : (
+              <>
+                <img
+                  src={data.image}
+                  alt=""
+                  style={{ width: "130px", height: "110px" }}
+                ></img>
+                <img
+                  src={data.image}
+                  alt=""
+                  style={{ width: "130px", height: "110px" }}
+                ></img>
+                <img
+                  src={data.image}
+                  alt=""
+                  style={{ width: "130px", height: "110px" }}
+                ></img>
+                <img
+                  src={data.image}
+                  alt=""
+                  style={{ width: "130px", height: "110px" }}
+                ></img>
+              </>
+            )}
           </div>
           <div>
             {success && (
@@ -137,8 +169,10 @@ export default function Display({ cartvalue, setcartvalue,amount,setAmount }) {
                 </Alert>
               </div>
             )}
+            {data.image?
+            <>
             <img
-              src={imgSrc}
+              src={data.image}
               alt=""
               style={{
                 position: "relative",
@@ -147,6 +181,20 @@ export default function Display({ cartvalue, setcartvalue,amount,setAmount }) {
                 width: "500px",
               }}
             ></img>
+            </> :
+             <>
+             <img
+               src={imgSrc}
+               alt=""
+               style={{
+                 position: "relative",
+                 zIndex: "-1",
+                 height: "470px",
+                 width: "500px",
+               }}
+             ></img>
+             </> 
+            }
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <h4>{data.title}</h4>
@@ -193,11 +241,7 @@ export default function Display({ cartvalue, setcartvalue,amount,setAmount }) {
               </div>
             )}
             <div style={{ margin: "20px", display: "flex", gap: "10px" }}>
-              <button
-                type="button"
-                class="btn btn-danger"
-                onClick={buyNow}
-              >
+              <button type="button" class="btn btn-danger" onClick={buyNow}>
                 Buy Now
               </button>
               <button

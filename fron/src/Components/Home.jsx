@@ -205,7 +205,7 @@ const Home = () => {
       <div className="carddetails">
         {data.slice(12).map((ele, index) => (
           <Card
-            img={getImage(ele._id)}
+            img={ele.image}
             title={ele.title}
             price={ele.price}
             rating={ele.rating}
