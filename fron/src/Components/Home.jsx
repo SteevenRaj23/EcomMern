@@ -190,7 +190,20 @@ const Home = () => {
         ))}
       </div>
       <div className="carddetails">
-        {data.slice(8).map((ele, index) => (
+        {data.slice(8,12).map((ele, index) => (
+          <Card
+            img={getImage(ele._id)}
+            title={ele.title}
+            price={ele.price}
+            rating={ele.rating}
+            onclick={() => {
+              display(ele);
+            }}
+          />
+        ))}
+      </div>
+      <div className="carddetails">
+        {data.slice(12).map((ele, index) => (
           <Card
             img={getImage(ele._id)}
             title={ele.title}

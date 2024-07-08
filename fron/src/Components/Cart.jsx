@@ -298,7 +298,7 @@ export default function Cart({ cartvalue, setcartvalue,amount, setAmount }) {
             }}
           >
             <h6 style={{}}>Shipping:</h6>
-            <h6>Free Shipping</h6> {/* Assuming free shipping for simplicity */}
+            <h6>Free Shipping</h6> 
           </div>
           <div
             style={{
@@ -310,7 +310,7 @@ export default function Cart({ cartvalue, setcartvalue,amount, setAmount }) {
             }}
           >
             <h6 style={{}}>Total:</h6>
-            <h6>${calculateSubtotal()}</h6> {/* Total is the same as subtotal in this case */}
+            <h6>${calculateSubtotal()}</h6> 
           </div>
           <button
             type="button"
