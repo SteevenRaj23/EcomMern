@@ -19,7 +19,7 @@ const AddProductForm = () => {
       formData.append("image", image);
 
       const response = await axios.post(
-        "http://localhost:5000/addProduct",
+        "https://ecom-mern-seven.vercel.app/addProduct",
         formData,
         {
           headers: {
