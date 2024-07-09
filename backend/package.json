@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "proxy": "https://ecom-mern-57xj.vercel.app",
   "author": "",
   "license": "ISC",
   "dependencies": {

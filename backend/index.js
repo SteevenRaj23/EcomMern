@@ -21,10 +21,6 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use(cors({ origin: 'http://localhost:3000' }));
-app.use(cors({
-    origin: 'https://ecom-mern-57xj.vercel.app'
-  }));
   
 
 app.get('/', (req, res) => {
