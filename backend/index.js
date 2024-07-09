@@ -199,6 +199,11 @@ app.post("/updateCart/:userId", async (req, res) => {
 app.post('/addProduct', upload.single('image'), async (req, res) => {
     const { title, price, rating } = req.body;
 
+    // Add CORS headers specifically for this route
+    res.setHeader('Access-Control-Allow-Origin', 'https://ecom-mern-57xj.vercel.app'); // Replace '*' with your frontend domain if needed
+    res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
     if (!title || !price || !rating) {
         return res.status(400).json({ error: 'Title, price, and rating are required' });
     }
@@ -235,6 +240,7 @@ app.post('/addProduct', upload.single('image'), async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
 
 
 
