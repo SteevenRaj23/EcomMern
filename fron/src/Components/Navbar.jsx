@@ -128,7 +128,7 @@ export default function Navbar({cartvalue,setcartvalue}) {
               )}
             </li>
           </ul>
-          <Search style={{ backgroundColor: "#FEFAF1" }}>
+          {/* <Search style={{ backgroundColor: "#FEFAF1" }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -136,7 +136,7 @@ export default function Navbar({cartvalue,setcartvalue}) {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
+          </Search> */}
           <div
             className="add-to-cart"
             style={{
