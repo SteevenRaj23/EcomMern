@@ -50,7 +50,7 @@ app.post("/login", async (req, resp) => {
             Jwt.sign({user},jwtKey,{expiresIn:"2h"},(err,token)=>{
                 if(err){
                     return resp.send({result:"something went Wrong"})
-                    
+
                 }
                 resp.send({user,auth:token})
             })
@@ -89,7 +89,7 @@ app.post("/register", async (req, res) => {
     }
 });
 
-app.get("/displayProduct", async (req, resp) => {
+app.get("/displayProduct", verifyToken,async (req, resp) => {
     let product = await Product.find();
     if (product.length > 0) {
         resp.send(product);
@@ -286,3 +286,21 @@ app.get("/searchProduct", async (req, res) => {
 app.listen(5000, () => {
     console.log("Server is running on port 5000");
 });
+
+function verifyToken(req,resp,next){
+    let token=req.headers['authorization']
+    
+    if(token){
+      token=token.split(' ')[1];
+      Jwt.verify(token,jwtKey,(err,valid)=>{
+       if(err){
+         resp.status(401).send({result:"plz provide valid token"})
+       }else{
+        next();
+       }
+      })
+    }else{
+      resp.status(403).send({result:"plz add token"})
+    }
+  }
+  

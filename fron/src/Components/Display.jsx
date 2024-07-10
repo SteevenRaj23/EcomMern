@@ -25,7 +25,7 @@ export default function Display({
 
   useEffect(() => {
     axios
-      .get(`https://ecom-mern-seven.vercel.app/display/${id}`)
+      .get(`https://ecom-mern-seven.vercel.app/display/${id}`,{headers:{Authorization:`brearer ${JSON.parse(localStorage.getItem('auth'))}`}})
       .then((res) => {
         console.log(res.data);
         setdata(res.data);
