@@ -24,8 +24,10 @@ export default function Display({
   let navi = useNavigate();
  
   useEffect(() => {
+    const token=JSON.parse(localStorage.getItem('user'))
+    console.log(token.auth)
     axios
-      .get(`https://ecom-mern-seven.vercel.app/display/${id}`,{headers:{Authorization:`brearer ${JSON.parse(localStorage.getItem('auth'))}`}})
+      .get(`https://ecom-mern-seven.vercel.app/display/${id}`,{headers:{Authorization:`brearer ${token.auth}`}})
       .then((res) => {
         console.log(res.data);
         setdata(res.data);
