@@ -70,7 +70,7 @@ app.post("/register", async (req, res) => {
                     if(err){
                         return res.send({result:"something went Wrong"})
                     }
-                    res.send({result,auth:token})
+                    res.send({user:result,auth:token})
                 })
             }
         } catch (error) {
