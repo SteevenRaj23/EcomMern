@@ -47,7 +47,14 @@ app.post("/login", async (req, resp) => {
     if (req.body.password && req.body.email) {
         let user = await User.findOne(req.body).select("-password");
         if (user) {
-            resp.send({ user });
+            Jwt.sign({user},jwtKey,{expiresIn:"2h"},(err,token)=>{
+                if(err){
+                    return resp.send({result:"something went Wrong"})
+                    
+                }
+                resp.send({user,auth:token})
+            })
+            
         } else {
             resp.send({ result: "user not found" });
         }
