@@ -22,7 +22,6 @@ export default function Display({
   const { id } = useParams();
 
   let navi = useNavigate();
-  
  
   useEffect(() => {
     axios
