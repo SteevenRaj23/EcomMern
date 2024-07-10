@@ -9,6 +9,8 @@ const fs = require('fs');
 const path = require('path');
 const Prod=require('./db/Prod')
 const cloudinary = require('cloudinary').v2;
+const Jwt=require('jsonwebtoken');
+const jwtKey="steve";
 
 cloudinary.config({
     cloud_name: 'dhjdvfk3t',
@@ -63,7 +65,14 @@ app.post("/register", async (req, res) => {
             let result = await newUser.save();
             result = result.toObject();
             delete result.password;
-            res.send({ user: result });
+            if(result){
+                Jwt.sign({newUser},jwtKey,{expiresIn:"2h"},(err,token)=>{
+                    if(err){
+                        return res.send({result:"something went Wrong"})
+                    }
+                    res.send({result,auth:token})
+                })
+            }
         } catch (error) {
             console.error(error);
             res.status(500).send({ result: "Internal server error" });
