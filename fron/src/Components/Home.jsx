@@ -8,6 +8,8 @@ import Display from "./Display";
 const Home = () => {
   const [data, setdata] = useState([]);
 
+console.log(JSON.parse(localStorage.getItem('auth')))
+
   useEffect(() => {
     axios
       .get("https://ecom-mern-seven.vercel.app/displayProduct")

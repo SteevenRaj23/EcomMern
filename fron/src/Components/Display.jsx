@@ -22,7 +22,8 @@ export default function Display({
   const { id } = useParams();
 
   let navi = useNavigate();
-
+  
+ 
   useEffect(() => {
     axios
       .get(`https://ecom-mern-seven.vercel.app/display/${id}`,{headers:{Authorization:`brearer ${JSON.parse(localStorage.getItem('auth'))}`}})

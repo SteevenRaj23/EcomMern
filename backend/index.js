@@ -89,7 +89,7 @@ app.post("/register", async (req, res) => {
     }
 });
 
-app.get("/displayProduct", verifyToken,async (req, resp) => {
+app.get("/displayProduct", async (req, resp) => {
     let product = await Product.find();
     if (product.length > 0) {
         resp.send(product);
@@ -98,7 +98,7 @@ app.get("/displayProduct", verifyToken,async (req, resp) => {
     }
 });
 
-app.get("/display/:id", async (req, resp) => {
+app.get("/display/:id", verifyToken,async (req, resp) => {
     let _id = req.params.id;
     console.log({ _id });
 
