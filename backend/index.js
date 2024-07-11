@@ -290,6 +290,7 @@ app.listen(5000, () => {
 function verifyToken(req,resp,next){
     let token=req.headers['authorization']
     
+    
     if(token){
       token=token.split(' ')[1];
       Jwt.verify(token,jwtKey,(err,valid)=>{

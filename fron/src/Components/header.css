@@ -16,7 +16,7 @@
 
   @media (min-width: 768px) {
     .responsive-image {
-      max-height: 100px;      
+      max-height: 40px;      
     }
   }
   
