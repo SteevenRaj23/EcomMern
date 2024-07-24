@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import Navbar from "./Navbar";
+import './Display.css'
 
 export default function Display({
   cartvalue,
@@ -98,15 +99,10 @@ export default function Display({
     <>
       {data && (
         <div
-          style={{
-            marginLeft: "50px",
-            display: "flex",
-            marginBottom: "50px",
-            gap: "40px",
-          }}
+          className="Main-Container"
         >
           <div
-            style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+            className="Mini-Container"
           >
             {data.image ? (
               <>
@@ -156,7 +152,7 @@ export default function Display({
               </>
             )}
           </div>
-          <div>
+          <div className="imge">
             {success && (
               <div
                 style={{
@@ -174,31 +170,21 @@ export default function Display({
             {data.image?
             <>
             <img
+              className="Main-img"
               src={data.image}
               alt=""
-              style={{
-                position: "relative",
-                zIndex: "-1",
-                height: "470px",
-                width: "500px",
-              }}
             ></img>
             </> :
              <>
              <img
+                className="Main-img"
                src={imgSrc}
                alt=""
-               style={{
-                 position: "relative",
-                 zIndex: "-1",
-                 height: "470px",
-                 width: "500px",
-               }}
              ></img>
              </> 
             }
           </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div  style={{ display: "flex", flexDirection: "column" }}>
             <h4>{data.title}</h4>
             <div>
               {stars.map((isFilled, index) => (
