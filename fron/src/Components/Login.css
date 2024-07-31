@@ -1,0 +1,57 @@
+.Main{
+    margin-top: 50px; 
+    margin-bottom: 60px; 
+    display: flex;
+}
+
+.Main-imgg{
+    height: 481px;
+     width: 605px;
+}
+
+.Login{
+     margin: 80px;
+}
+
+.size{
+    width: 320px;  
+}
+
+.Forget{
+    margin-left: 100px; 
+    color: #DB4444; 
+}
+
+
+
+
+@media (max-width: 576px) {
+    .Main{
+        margin-top: 50px; 
+        margin-bottom: 60px; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .Main-imgg{
+        height: 200px;
+       width: 200px; 
+       margin-bottom: 20px;
+
+    }
+    .Login{
+        margin: 10px;
+   }
+   
+   .size{
+    width: 300px;  
+    }
+
+    .Forget{
+        margin-left: 70px; 
+        color: #DB4444; 
+    }
+
+
+}

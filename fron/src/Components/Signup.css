@@ -10,6 +10,9 @@
      margin-top: 60px; 
     }
 
+.box2{
+    margin: 100px; 
+}
 @media (max-width: 576px) {
     .box{
         margin-top: 0px;
@@ -24,4 +27,8 @@
      width: 200px;
      margin-top: 20px; 
     }
+    .box2{
+        margin: 20px; 
+    }
+
 }

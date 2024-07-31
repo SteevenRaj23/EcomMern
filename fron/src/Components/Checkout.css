@@ -1,0 +1,9 @@
+.Label{
+    width: 330px;
+}
+
+@media (max-width: 576px) {
+    .Label{
+        width: 280px;
+    }
+}

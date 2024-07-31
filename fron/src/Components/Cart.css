@@ -1,7 +1,117 @@
 .css-1yhpg23-MuiTableCell-root {
-    border-bottom: 1px solid white;
+  border-bottom: 1px solid white;
 }
 
-.css-1ndpvdd-MuiTableCell-root{
-    border-bottom: 1px solid white;
+.css-1ndpvdd-MuiTableCell-root {
+  border-bottom: 1px solid white;
+}
+
+.Title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 100px;
+  margin-left: 100px;
+  margin-bottom: 20px;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.Title-p {
+  margin-left: 48px;
+}
+
+.Title-s {
+  margin-right: 17px;
+}
+
+.Update {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 60px;
+  margin-right: 100px;
+}
+
+.Coupon {
+  display: block;
+}
+
+.Checkout {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom: 50px;
+}
+
+.list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 100px;
+  margin-left: 100px;
+  margin-bottom: 20px;
+  padding: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.ProductName{
+    display: block;  
+}
+
+@media (max-width: 576px) {
+    
+    .ProductName{
+      display: none;    
+    }
+
+    .list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-bottom: 20px;
+        padding: 15px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+
+  .Title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 20px;
+    padding: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .Title-p {
+    margin-left: 0px;
+  }
+
+  .Title-s {
+    margin-right: 0px;
+  }
+
+  .Update {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .Coupon {
+    display: none;
+  }
+
+  .Checkout {
+    margin: 0px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
 }

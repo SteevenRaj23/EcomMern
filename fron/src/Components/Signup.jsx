@@ -73,7 +73,7 @@ export default function Signup() {
           alt="logo"
           className="Image"
         ></img>
-        <div style={{ margin: "100px" }}>
+        <div className="box2">
           <h1 style={{ marginBottom: "20px" }}>Create an account</h1>
           <span style={{ fontWeight: "500" }}>Enter your details below</span>
           <div style={{ display: "flex", flexDirection: "column", gap: "5px", marginTop: "20px" }}>

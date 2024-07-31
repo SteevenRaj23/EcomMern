@@ -1,19 +1,22 @@
 import axios from "axios";
 import React, { useEffect, useState, useCallback } from "react";
-import { useNavigate } from 'react-router-dom';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
+import "./Cart.css";
 
-export default function Cart({ cartvalue, setcartvalue,amount, setAmount }) {
+export default function Cart({ cartvalue, setcartvalue, amount, setAmount }) {
   const [cartItems, setCartItems] = useState([]);
   const [quantities, setQuantities] = useState({});
 
-  let user = JSON.parse(localStorage.getItem('user'));
+  let user = JSON.parse(localStorage.getItem("user"));
   let userId = user.user._id;
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`https://ecom-mern-seven.vercel.app/cartProduct/${userId}`);
+        const response = await axios.get(
+          `https://ecom-mern-seven.vercel.app/cartProduct/${userId}`
+        );
         setCartItems(response.data);
         setcartvalue(response.data.length);
         const initialQuantities = response.data.reduce((acc, item) => {
@@ -32,57 +35,64 @@ export default function Cart({ cartvalue, setcartvalue,amount, setAmount }) {
     try {
       return require(`../Asset/${id}.png`);
     } catch (error) {
-      return "https://via.placeholder.com/40"; 
+      return "https://via.placeholder.com/40";
     }
   }, []);
 
   const navigate = useNavigate();
 
   const handleShop = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const handleCheckout = (val) => {
-    setAmount(val)
-    navigate('/billing');
+    setAmount(val);
+    navigate("/billing");
   };
 
   const handleQuantityChange = (productId, newQuantity) => {
     setQuantities((prevQuantities) => ({
       ...prevQuantities,
-      [productId]: Number(newQuantity) >= 1 ? Number(newQuantity) : 1  
+      [productId]: Number(newQuantity) >= 1 ? Number(newQuantity) : 1,
     }));
   };
 
   const updateCart = async () => {
     try {
-      const updatedItems = cartItems.map(item => ({
+      const updatedItems = cartItems.map((item) => ({
         productId: item.productId,
-        quantity: quantities[item.productId] || item.quantity
+        quantity: quantities[item.productId] || item.quantity,
       }));
-      
-      console.log(updatedItems)
-      const response = await axios.post(`https://ecom-mern-seven.vercel.app/updateCart/${userId}`, {
-        cartItems: updatedItems
-      });
+
+      console.log(updatedItems);
+      const response = await axios.post(
+        `https://ecom-mern-seven.vercel.app/updateCart/${userId}`,
+        {
+          cartItems: updatedItems,
+        }
+      );
 
       console.log("Cart updated successfully:", response.data);
 
-
-      const refetchedData = await axios.get(`https://ecom-mern-seven.vercel.app/cartProduct/${userId}`);
+      const refetchedData = await axios.get(
+        `https://ecom-mern-seven.vercel.app/cartProduct/${userId}`
+      );
       setCartItems(refetchedData.data);
-
     } catch (error) {
       console.error("Error updating cart:", error);
     }
   };
-  
+
   const deleteItem = async (id) => {
     try {
-      const result = await axios.delete(`https://ecom-mern-seven.vercel.app/delete/${userId}/${id}`);
+      const result = await axios.delete(
+        `https://ecom-mern-seven.vercel.app/delete/${userId}/${id}`
+      );
       console.log(result);
 
-      const updatedData = await axios.get(`https://ecom-mern-seven.vercel.app/cartProduct/${userId}`);
+      const updatedData = await axios.get(
+        `https://ecom-mern-seven.vercel.app/cartProduct/${userId}`
+      );
       setCartItems(updatedData.data);
       setcartvalue(updatedData.data.length);
     } catch (error) {
@@ -91,47 +101,30 @@ export default function Cart({ cartvalue, setcartvalue,amount, setAmount }) {
   };
 
   const calculateSubtotal = () => {
-    return cartItems.reduce((total, item) => {
-      return total + item.price.slice(1) * (quantities[item.productId] || item.quantity);
-    }, 0).toFixed(2);
+    return cartItems
+      .reduce((total, item) => {
+        return (
+          total +
+          item.price.slice(1) * (quantities[item.productId] || item.quantity)
+        );
+      }, 0)
+      .toFixed(2);
   };
 
   return (
     <>
       <div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginRight: "100px",
-            marginLeft: "100px",
-            marginBottom: "20px",
-            padding: "10px",
-            boxShadow:
-              "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-          }}
-        >
-          <h6 style={{ marginLeft: "48px" }}>Product</h6>
+        <div className="Title">
+          <h6 className="Title-p">Product</h6>
           <h6>Price</h6>
           <h6>Quantity</h6>
-          <h6 style={{ marginRight: "17px" }}>Subtotal</h6>
+          <h6 className="Title-s">Subtotal</h6>
         </div>
 
         {cartItems.map((item, index) => (
           <div
             key={index}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginRight: "100px",
-              marginLeft: "100px",
-              marginBottom: "20px",
-              padding: "15px",
-              boxShadow:
-                "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-            }}
+            className="list"
           >
             <div
               style={{
@@ -146,6 +139,7 @@ export default function Cart({ cartvalue, setcartvalue,amount, setAmount }) {
                 style={{ width: "40px", height: "40px" }}
               />
               <h6
+                className="ProductName"
                 style={{
                   fontWeight: "500",
                   padding: "8px",
@@ -167,27 +161,37 @@ export default function Cart({ cartvalue, setcartvalue,amount, setAmount }) {
             </h6>
             <div style={{ width: "170px" }}>
               <input
-                type='number'
-                style={{ width: "50px", border: "2px solid black", borderRadius: "5px" }}
+                type="number"
+                style={{
+                  width: "50px",
+                  border: "2px solid black",
+                  borderRadius: "5px",
+                }}
                 value={quantities[item.productId] || item.quantity}
-                onChange={(e) => handleQuantityChange(item.productId, e.target.value)}
+                onChange={(e) =>
+                  handleQuantityChange(item.productId, e.target.value)
+                }
               />
-              <DeleteIcon style={{ marginLeft: "10px", marginBottom: "5px", cursor: "pointer" }} onClick={() => deleteItem(item.productId)} />
+              <DeleteIcon
+                style={{
+                  marginLeft: "10px",
+                  marginBottom: "5px",
+                  cursor: "pointer",
+                }}
+                onClick={() => deleteItem(item.productId)}
+              />
             </div>
-            <h6 style={{ paddingRight: "20px", fontWeight: "500", width: "70px" }}>
-              ${item.price.slice(1) * (quantities[item.productId] || item.quantity)}
+            <h6
+              style={{ paddingRight: "20px", fontWeight: "500", width: "70px" }}
+            >
+              $
+              {item.price.slice(1) *
+                (quantities[item.productId] || item.quantity)}
             </h6>
           </div>
         ))}
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginLeft: "60px",
-          marginRight: "100px",
-        }}
-      >
+      <div className="Update">
         <button
           type="button"
           className="btn btn-primary"
@@ -223,17 +227,8 @@ export default function Cart({ cartvalue, setcartvalue,amount, setAmount }) {
           Update Cart
         </button>
       </div>
-      <div
-        style={{
-          marginTop: "50px",
-          display: "flex",
-          justifyContent: "space-between",
-          marginLeft: "100px",
-          marginRight: "100px",
-          marginBottom: "50px"
-        }}
-      >
-        <div>
+      <div className="Checkout">
+        <div className="Coupon">
           <input
             type="text"
             placeholder="Coupon Code"
@@ -242,7 +237,7 @@ export default function Cart({ cartvalue, setcartvalue,amount, setAmount }) {
               border: "1px solid black",
               fontWeight: "400",
               width: "250px",
-              borderRadius: "5px"
+              borderRadius: "5px",
             }}
           />
           <button
@@ -298,7 +293,7 @@ export default function Cart({ cartvalue, setcartvalue,amount, setAmount }) {
             }}
           >
             <h6 style={{}}>Shipping:</h6>
-            <h6>Free Shipping</h6> 
+            <h6>Free Shipping</h6>
           </div>
           <div
             style={{
@@ -310,7 +305,7 @@ export default function Cart({ cartvalue, setcartvalue,amount, setAmount }) {
             }}
           >
             <h6 style={{}}>Total:</h6>
-            <h6>${calculateSubtotal()}</h6> 
+            <h6>${calculateSubtotal()}</h6>
           </div>
           <button
             type="button"
@@ -322,7 +317,7 @@ export default function Cart({ cartvalue, setcartvalue,amount, setAmount }) {
               width: "220px",
               marginLeft: "40px",
             }}
-            onClick={()=>handleCheckout(calculateSubtotal())}
+            onClick={() => handleCheckout(calculateSubtotal())}
           >
             Proceed to Checkout
           </button>
