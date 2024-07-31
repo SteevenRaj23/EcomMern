@@ -1,15 +1,14 @@
 import React from "react";
-import './About.css'
-
+import "./About.css";
 
 function About() {
   return (
     <>
       <div className="About">
-        <div
-          className="Container"
-        >
-          <h1 className="Title" style={{ marginBottom: "30px" }}>Our Story</h1>
+        <div className="Container">
+          <h1 className="title" style={{ marginBottom: "30px" }}>
+            Our Story
+          </h1>
           <p className="Info">
             Launched in 2015, Exclusive is South Asia's premier online shopping
             marketplace with an active presence in Bangladesh. Supported by a
@@ -23,16 +22,14 @@ function About() {
             ranging from consumer electronics to household items.
           </p>
         </div>
-        <div  className="Imgtag" >
+        <div className="Imgtag">
           <img
             className="Img"
             src="https://th.bing.com/th/id/OIP.L3nRdDxJ52HPH2u-LooaFAHaIR?rs=1&pid=ImgDetMain"
           />
         </div>
       </div>
-      <div
-       className="footer"
-      >
+      <div className="footer">
         <div style={{ textAlign: "center", marginBottom: "20px" }}>
           <img src="s1.png" size={50} />
           <h3>10.5k</h3>
