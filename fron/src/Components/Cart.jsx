@@ -3,10 +3,12 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./Cart.css";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Cart({ cartvalue, setcartvalue, amount, setAmount }) {
   const [cartItems, setCartItems] = useState([]);
   const [quantities, setQuantities] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   let user = JSON.parse(localStorage.getItem("user"));
   let userId = user.user._id;
@@ -19,6 +21,7 @@ export default function Cart({ cartvalue, setcartvalue, amount, setAmount }) {
         );
         setCartItems(response.data);
         setcartvalue(response.data.length);
+        setIsLoading(false);
         const initialQuantities = response.data.reduce((acc, item) => {
           acc[item.productId] = item.quantity;
           return acc;
@@ -26,6 +29,7 @@ export default function Cart({ cartvalue, setcartvalue, amount, setAmount }) {
         setQuantities(initialQuantities);
       } catch (error) {
         console.error("Error fetching cart data:", error);
+        setIsLoading(false);
       }
     }
     fetchData();
@@ -77,6 +81,7 @@ export default function Cart({ cartvalue, setcartvalue, amount, setAmount }) {
       const refetchedData = await axios.get(
         `https://ecom-mern-seven.vercel.app/cartProduct/${userId}`
       );
+      setIsLoading(false);
       setCartItems(refetchedData.data);
     } catch (error) {
       console.error("Error updating cart:", error);
@@ -120,12 +125,9 @@ export default function Cart({ cartvalue, setcartvalue, amount, setAmount }) {
           <h6>Quantity</h6>
           <h6 className="Title-s">Subtotal</h6>
         </div>
-
-        {cartItems.map((item, index) => (
-          <div
-            key={index}
-            className="list"
-          >
+        {isLoading ? ( <CircularProgress  style={{display:"flex",justifyContent:"center",width:"100%",marginTop:"20px"}}/>       ) : 
+        (cartItems.map((item, index) => (
+          <div key={index} className="list">
             <div
               style={{
                 width: "220px",
@@ -189,8 +191,9 @@ export default function Cart({ cartvalue, setcartvalue, amount, setAmount }) {
                 (quantities[item.productId] || item.quantity)}
             </h6>
           </div>
-        ))}
+        )))}
       </div>
+
       <div className="Update">
         <button
           type="button"

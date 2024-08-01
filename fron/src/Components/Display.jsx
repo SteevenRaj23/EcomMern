@@ -5,7 +5,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import Navbar from "./Navbar";
-import './Display.css'
+import "./Display.css";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Display({
   cartvalue,
@@ -23,12 +24,14 @@ export default function Display({
   const { id } = useParams();
 
   let navi = useNavigate();
- 
+
   useEffect(() => {
-    const token=JSON.parse(localStorage.getItem('user'))
-    console.log(token.auth)
+    const token = JSON.parse(localStorage.getItem("user"));
+    console.log(token.auth);
     axios
-      .get(`https://ecom-mern-seven.vercel.app/display/${id}`,{headers:{Authorization:`brearer ${token.auth}`}})
+      .get(`https://ecom-mern-seven.vercel.app/display/${id}`, {
+        headers: { Authorization: `brearer ${token.auth}` },
+      })
       .then((res) => {
         console.log(res.data);
         setdata(res.data);
@@ -97,13 +100,14 @@ export default function Display({
   }
   return (
     <>
+      {!data && (
+        <div className="Main-Container" style={{display:"flex",justifyContent:"center",height:"400px",alignItems:"center"}}>
+          <CircularProgress />
+        </div>
+      )}
       {data && (
-        <div
-          className="Main-Container"
-        >
-          <div
-            className="Mini-Container"
-          >
+        <div className="Main-Container">
+          <div className="Mini-Container">
             {data.image ? (
               <>
                 <img
@@ -154,33 +158,23 @@ export default function Display({
           </div>
           <div className="imge">
             {success && (
-              <div
-              className="Alert"
-           
-              >
+              <div className="Alert">
                 <Alert variant="filled" severity="success">
                   Successfully Added to Cart
                 </Alert>
               </div>
             )}
-            {data.image?
-            <>
-            <img
-              className="Main-img"
-              src={data.image}
-              alt=""
-            ></img>
-            </> :
-             <>
-             <img
-                className="Main-img"
-               src={imgSrc}
-               alt=""
-             ></img>
-             </> 
-            }
+            {data.image ? (
+              <>
+                <img className="Main-img" src={data.image} alt=""></img>
+              </>
+            ) : (
+              <>
+                <img className="Main-img" src={imgSrc} alt=""></img>
+              </>
+            )}
           </div>
-          <div  style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <h4>{data.title}</h4>
             <div>
               {stars.map((isFilled, index) => (
