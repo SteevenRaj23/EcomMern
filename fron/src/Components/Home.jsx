@@ -4,10 +4,11 @@ import axios from "axios";
 import "./Home.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import Display from "./Display";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Home = () => {
   const [data, setdata] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -15,6 +16,7 @@ const Home = () => {
       .then((res) => {
         console.log(res);
         setdata(res.data);
+        setIsLoading(false);
       });
   }, []);
 
@@ -143,7 +145,8 @@ const Home = () => {
         <h4>Best Selling Products</h4>
       </div>
       <div className="carddetails">
-        {data.slice(0, 4).map((ele, index) => (
+      {isLoading ? ( <CircularProgress />):(
+        data.slice(0, 4).map((ele, index) => (
           <Card
             img={getImage(ele._id)}
             title={ele.title}
@@ -153,7 +156,9 @@ const Home = () => {
               display(ele);
             }}
           />
-        ))}
+        ))
+      )
+      }
       </div>
       <div className="Heading">
         <svg
@@ -178,7 +183,8 @@ const Home = () => {
         <h4>Explore Our Products</h4>
       </div>
       <div className="carddetails">
-        {data.slice(4, 8).map((ele, index) => (
+      {isLoading ? ( <CircularProgress />):(
+        data.slice(4, 8).map((ele, index) => (
           <Card
             img={getImage(ele._id)}
             title={ele.title}
@@ -188,10 +194,12 @@ const Home = () => {
               display(ele);
             }}
           />
-        ))}
+        )))
+      }
       </div>
       <div className="carddetails">
-        {data.slice(8,12).map((ele, index) => (
+      {isLoading ? ( <CircularProgress />):(
+        data.slice(8,12).map((ele, index) => (
           <Card
             img={getImage(ele._id)}
             title={ele.title}
@@ -201,7 +209,8 @@ const Home = () => {
               display(ele);
             }}
           />
-        ))}
+        )))
+      }
       </div>
       <div className="carddetails">
         {data.slice(12).map((ele, index) => (

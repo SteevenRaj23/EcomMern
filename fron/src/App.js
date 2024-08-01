@@ -14,6 +14,7 @@ import Checkout from "./Components/Checkout";
 import Contact from "./Components/Contact";
 import Payment from "./Components/Payment";
 import Add from "./Components/Add"
+import Adminorder from "./Components/Adminorder"
 
 function App() {
   const[cartvalue,setcartvalue]=useState();
@@ -36,6 +37,7 @@ function App() {
           <Route path="/Contact" element={  <Contact/> } />
           <Route path="/Payment" element={  <Payment amount={amount} setAmount={setAmount}/> } />
           <Route path="/admin" element={<Add></Add>}/>
+          <Route path="/adminorder" element={<Adminorder/>} />
         </Routes>
         <Footer />
       </BrowserRouter>

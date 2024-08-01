@@ -155,12 +155,8 @@ export default function Display({
           <div className="imge">
             {success && (
               <div
-                style={{
-                  position: "absolute",
-                  zIndex: "10",
-                  marginTop: "200px",
-                  marginLeft: "130px",
-                }}
+              className="Alert"
+           
               >
                 <Alert variant="filled" severity="success">
                   Successfully Added to Cart

@@ -19,7 +19,7 @@ const AddProductForm = () => {
       formData.append("image", image);
 
       const response = await axios.post(
-        "https://ecom-mern-seven.vercel.app/addProduct",
+        "https://ecom-mern-seven.vercel.app/AddproductAdmin",
         formData,
         {
           headers: {
@@ -40,7 +40,7 @@ const AddProductForm = () => {
   };
 
   return (
-    <div>
+    <div style={{marginBottom:"30px"}}>
       <h2 style={{ textAlign: "center", color: "#333", marginBottom: "20px" }}>
         Add Product
       </h2>

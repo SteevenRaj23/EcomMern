@@ -18,6 +18,13 @@
      gap: 10px; 
 }
 
+.Alert{
+    position: absolute;
+    z-index: 10;
+    margin-top: 200px;
+    margin-left: 130px;
+}
+
 
 @media (max-width: 576px) {
   .Main-Container {
@@ -51,4 +58,11 @@
   .Info{
     align-items: center;
 }
+.Alert{
+  position: absolute;
+  z-index: 10;
+  margin-top: 120px;
+  margin-left: 0px;
+}
+
 }

@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import axios from 'axios';
 
 export default function Payment({amount,setAmount}) {
-    
     const [paymentStatus, setPaymentStatus] = useState(''); 
+    const [data,setdata] = useState([]);
+
+    useEffect(()=>{
+      let user = JSON.parse(localStorage.getItem("user"));
+      let userId = user.user._id;  
+      axios.get(`https://ecom-mern-seven.vercel.app/cartProduct/${userId}`)
+      .then((res)=>{setdata(res.data)})
+      .catch((err)=> console.error(err));
+    },[])
+
 
     function handlePayment() {
         if (!amount) {
@@ -24,6 +34,7 @@ export default function Payment({amount,setAmount}) {
                 
                 console.log("Payment ID:", response.razorpay_payment_id);
                 setPaymentStatus('success');
+                postOrder();
             },
             prefill: {
                 name: "steeven",
@@ -53,6 +64,27 @@ export default function Payment({amount,setAmount}) {
         console.log("Order cancelled due to payment failure");
      
     }
+
+   function postOrder(){
+        let user = JSON.parse(localStorage.getItem("user"));
+        let userId = user.user._id; 
+        console.log(userId) 
+        console.log(data)
+        
+        const orderData = data.map(item => ({
+            productId : item.productId,
+            qty: item.quantity
+        }));
+        console.log("hi")
+        console.log(orderData)
+        axios.post(`http://localhost:5000/order/${userId}/products`,orderData)
+           .then((res)=>{console.log('Order posted:',res.data)})
+           .catch(error => {
+            console.error('Error posting order:', error);
+        });
+    }
+
+    
 
     return (
         <>
