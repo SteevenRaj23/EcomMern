@@ -25,22 +25,15 @@ app.use(express.json());
 app.use(cors());
 
 
-// Configure Multer for file uploads
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const uploadDir = path.join(__dirname, 'uploads');
-        if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir);
-        }
-        cb(null, uploadDir);
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-    }
+cloudinary.config({
+    cloud_name: 'dhjdvfk3t',
+    api_key: '383646353243778',
+    api_secret: '8OfXx5QL4_CQOu561_P63HOR6g8'
 });
 
-const upload = multer({ storage: storage });
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 
 app.post("/login", async (req, resp) => {
     console.log(req.body);
@@ -257,7 +250,44 @@ app.post('/addProduct', upload.single('image'), async (req, res) => {
     }
 });
 
+app.post('/AddproductAdmin',upload.single('image'),async(req,res)=>{
+   
+    try {
+        const { title,price,rating } = req.body;
+        const file = req.file;
 
+        if (!file) {
+            return res.status(400).json({ error: 'No file uploaded' });
+        }
+
+        // Upload image to Cloudinary
+        const uploadResponse = await new Promise((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream(
+                { folder: 'Ecomproducts' },
+                (error, result) => {
+                    if (error) return reject(error);
+                    resolve(result);
+                }
+            );
+            uploadStream.end(file.buffer); // Use file.buffer with memoryStorage
+        });
+
+        // Create new product document
+        const product = new Product({
+            title,
+            price,
+            rating,
+            image: uploadResponse.secure_url,
+        });
+
+        // Save product to database
+        await product.save();
+        res.status(201).json(product);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to create package' });
+    }
+})
 
 
 
@@ -283,10 +313,6 @@ app.get("/searchProduct", async (req, res) => {
     }
 });
 
-app.listen(5000, () => {
-    console.log("Server is running on port 5000");
-});
-
 function verifyToken(req,resp,next){
     let token=req.headers['authorization']
     
@@ -305,3 +331,6 @@ function verifyToken(req,resp,next){
     }
   }
   
+  app.listen(5000, () => {
+    console.log("Server is running on port 5000");
+}); 
