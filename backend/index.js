@@ -364,6 +364,16 @@ app.put('/orderStatus/:userOrderNumber', async (req, res) => {
     }
   });
 
+app.get('/Allorders',async(req,res)=>{
+    let AllOrders = await Order.find();
+    if (AllOrders.length > 0) {
+        res.send(AllOrders);
+    } else {
+        res.send({ result: "No order found" });
+    }
+   
+})
+
 function verifyToken(req,resp,next){
     let token=req.headers['authorization']
     
