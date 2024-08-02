@@ -15,11 +15,11 @@ export default function Adminorder() {
   return (
     <>
       <div>
-        <div className="Title">
-          <h6 className="Title-p">Order Id</h6>
+        <div className="Title5">
+          <h6 className="Title-p5">Order Id</h6>
           <h6>Products</h6>
           <h6>Date</h6>
-          <h6 className="Title-s">Status</h6>
+          <h6 className="Title-s5">Status</h6>
         </div>
         {data && data.map((ele)=>(
         <div className="list5">
@@ -27,7 +27,7 @@ export default function Adminorder() {
           <h6 style={{marginLeft:"50px"}}>{ele.products.length}</h6>
           <div>
           <h6 style={{marginLeft:"100px"}}>Date : {ele.createdAt.slice(0,8)}</h6>
-          <h6 style={{marginLeft:"100px"}}>Time : {ele.createdAt.slice(10,20)}</h6>
+          <h6 style={{marginLeft:"100px"}}>Time : {ele.createdAt.slice(10,22)}</h6>
           </div>
           <Dropdown status={ele.status} OrderNumber={ele.userOrderNumber} />
         </div>))
