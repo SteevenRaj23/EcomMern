@@ -4,6 +4,7 @@ const cors = require("cors");
 const User = require("./db/User");
 const Product = require('./db/Product');
 const cartProduct = require('./db/cartProduct');
+const Order = require('./db/Order')
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
@@ -312,6 +313,56 @@ app.get("/searchProduct", async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+const generateOrderNumber = () => {
+    return `ORD-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+  };
+
+app.post('/order/:userId/products',async(req,res)=>{
+    const userId = req.params.userId;
+    const products = req.body
+
+    if(!Array.isArray(products) || products.length === 0){
+        return res.status(400).json({error : 'Invalid products array'});
+    }
+
+    try {
+       const order = new Order({userId,userOrderNumber: generateOrderNumber(),products, orderStatus: 'pending'});
+       await order.save();
+       res.status(201).json({ message: 'Order received', order });  
+    } catch (error) {
+        res.status(500).json({ error: 'Error saving order' });
+      }
+
+})
+
+app.put('/orderStatus/:userOrderNumber', async (req, res) => {
+    const { userOrderNumber } = req.params;
+    const { status } = req.body;
+  
+    // Validate the input
+    if (!status) {
+      return res.status(400).json({ error: 'orderStatus is required' });
+    }
+  
+    try {
+      // Find the order by userOrderNumber and update the orderStatus
+      const updatedOrder = await Order.findOneAndUpdate(
+        { userOrderNumber },
+        { status },
+        { new: true } // Return the updated document
+      );
+  
+      if (!updatedOrder) {
+        return res.status(404).json({ error: 'Order not found' });
+      }
+  
+      // Respond with the updated order
+      res.json({ message: 'Order status updated', updatedOrder });
+    } catch (error) {
+      res.status(500).json({ error: 'Error updating order status', details: error.message });
+    }
+  });
 
 function verifyToken(req,resp,next){
     let token=req.headers['authorization']

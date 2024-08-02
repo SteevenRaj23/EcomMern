@@ -77,7 +77,7 @@ export default function Payment({amount,setAmount}) {
         }));
         console.log("hi")
         console.log(orderData)
-        axios.post(`http://localhost:5000/order/${userId}/products`,orderData)
+        axios.post(`https://ecom-mern-seven.vercel.app/order/${userId}/products`,orderData)
            .then((res)=>{console.log('Order posted:',res.data)})
            .catch(error => {
             console.error('Error posting order:', error);
