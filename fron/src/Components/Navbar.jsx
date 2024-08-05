@@ -7,6 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -87,6 +88,12 @@ export default function Navbar({cartvalue,setcartvalue}) {
     fetchdata();   
   },[])
   
+ 
+
+  function myOrder(){
+    navigate("/MyOrders");
+  }
+
   return (
     <>
       <div>
@@ -218,6 +225,7 @@ export default function Navbar({cartvalue,setcartvalue}) {
                   style={{ marginLeft: "10px" }}
                   // onMouseOver={() => setisopen(true)}
                   // onMouseLeave={() => setisopen(false)}
+                  onClick={()=>{myOrder()}}
                 >
                   <rect width="32" height="32" rx="16" fill="#DB4444" />
                   <path

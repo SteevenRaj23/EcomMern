@@ -374,6 +374,21 @@ app.get('/Allorders',async(req,res)=>{
    
 })
 
+app.get("/Orders/:id",async (req, resp) => {
+    let userId = req.params.id;
+    console.log({ userId });
+
+    if (userId.length < 24) {
+        return resp.json({ httpCode: 400, error: 'Error Not Found' });
+    }
+    const result = await Order.find({ userId });
+    if (result) {
+        resp.send(result);
+    } else {
+        resp.send({ result: "not found" });
+    }
+});
+
 function verifyToken(req,resp,next){
     let token=req.headers['authorization']
     
