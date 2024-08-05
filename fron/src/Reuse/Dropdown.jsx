@@ -10,11 +10,11 @@ export default function SelectLabels({status,OrderNumber}) {
   const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
-    if(event.target.value === 10 || event.target.value === ""){
+    if(event.target.value === 10 ){
        axios.put(`https://ecom-mern-seven.vercel.app/orderStatus/${OrderNumber}`,{status:"shipped"})
          .then((res)=>{console.log(res)})
     }
-    if(event.target.value === 20){
+    if(event.target.value === 20 || event.target.value === ""){
       axios.put(`https://ecom-mern-seven.vercel.app/orderStatus/${OrderNumber}`,{status:"pending"})
         .then((res)=>{console.log(res)})
    }
