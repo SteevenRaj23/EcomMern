@@ -243,6 +243,7 @@ export default function Navbar({cartvalue,setcartvalue}) {
                     stroke-linejoin="round"
                   />
                 </svg>
+                <h6 style={{marginLeft:"8px",marginTop:"4px",textTransform:"capitalize"}}>{JSON.parse(auth).user.name}</h6>
                 { isopen &&(
                   <>
                     <div
