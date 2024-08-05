@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./MyOrders.css";
 import Dropdown from "../Reuse/Dropdown";
 import axios from "axios";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function MyOrders() {
   const [data, setdata] = useState();
@@ -16,8 +17,8 @@ export default function MyOrders() {
   }, []);
   return (
     <>
-      <div>
-        <h2 style={{ marginLeft: "100px", marginBottom: "30px" }}>My Order</h2>
+      <div style={{marginBottom:"250px"}}>
+        <h2 className="Title-8">My Order</h2>
         <div className="Title6">
           <h6 className="Title-p6">Order Id</h6>
           <h6>Products</h6>
@@ -25,19 +26,22 @@ export default function MyOrders() {
           <h6>Time</h6>
           <h6 className="Title-s6">Status</h6>
         </div>
+        {!data && (
+          <CircularProgress style={{display:"flex",justifyContent:"center",width:"100%"}}/>
+        )}
         {data &&
-          data.map((ele) => (
+          data.map((ele,index) => (
             <div className="list6">
-              <h6>{ele.userOrderNumber}</h6>
-              <h6 style={{ marginRight: "40px" }}>{ele.products.length}</h6>
+              <h6 className="Size-6">{ele.userOrderNumber.slice(4,-4)}</h6>
+              <h6 className="Size-6 place" style={{ marginRight: "40px" }}>{ele.products.length}</h6>
 
-              <h6 style={{ marginLeft: "0px" }}>
+              <h6 className="Size-6" style={{ marginLeft: "0px" }}>
                 {ele.createdAt.slice(0, 8)}
               </h6>
-              <h6 style={{ marginLeft: "00px" }}>
+              <h6 className="Size-6" style={{ marginLeft: "00px" }}>
                 {ele.createdAt.slice(10, 22)}
-              </h6>
-              {ele.status === "pending" ?(<h6 style={{marginRight:"10px"}}>Arriving</h6>):(<h6 style={{marginRight:"10px"}}>Shipped</h6>)}
+              </h6 >
+              {ele.status === "pending" ?(<h6 className="Size-6" style={{marginRight:"10px"}}>Arriving</h6>):(<h6 className="Size-6" style={{marginRight:"10px"}}>Shipped</h6>)}
             </div>
           ))}
       </div>
