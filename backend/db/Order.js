@@ -21,9 +21,10 @@ OrderSchema.pre("save", function (next) {
     hour: "numeric",
     minute: "numeric",
     second: "numeric",
+    timeZone: "Asia/Kolkata", // Set time zone to New Delhi, India
   };
   const timeString = date.toLocaleTimeString("en-US", options);
-  const dateString = date.toLocaleDateString("en-US");
+  const dateString = date.toLocaleDateString("en-US", { timeZone: "Asia/Kolkata" }); // Set time zone
   this.createdAt = `${dateString}, ${timeString}`;
   next();
 });
