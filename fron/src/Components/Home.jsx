@@ -76,28 +76,62 @@ const Home = () => {
         </ol>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img
-            loading="lazy"
-              className="d-block w-100 Img"
-              src="Untitled.png"
-              alt="First slide"
-            />
-          </div>
-          <div className="carousel-item ">
-            <img
-              loading="lazy"
-              className="d-block w-100 Img"
-              src="https://img.freepik.com/premium-vector/best-season-sale-banner-design-template_2239-1175.jpg?w=826"
-              alt="Second slide"
-            />
+            <picture>
+              {/* Smaller image for mobile devices */}
+              <source srcSet="Untitled-small.png" media="(max-width: 600px)" />
+              {/* Larger image for desktop and tablets */}
+              <source srcSet="Untitled.png" media="(min-width: 601px)" />
+              {/* Fallback for non-supporting browsers */}
+              <img
+                loading="lazy"
+                className="d-block w-100 Img"
+                src="Untitled.png"
+                alt="First slide"
+              />
+            </picture>
           </div>
           <div className="carousel-item">
-            <img
-             loading="lazy"
-              className="d-block w-100 Img"
-              src="https://img.freepik.com/free-vector/flat-horizontal-sale-banner-template-with-photo_23-2149000923.jpg?w=826&t=st=1718019966~exp=1718020566~hmac=c8d8bfc6b35fbe0ba4d6e7870d5e59fd90b5e84e5129c7f67d1b15d250b02fd1"
-              alt="Third slide"
-            />
+            <picture>
+              {/* Smaller image for mobile */}
+              <source
+                srcSet="https://img.freepik.com/premium-vector/best-season-sale-banner-design-template_2239-1175.jpg?w=400"
+                media="(max-width: 600px)"
+              />
+              {/* Larger image for desktop */}
+              <source
+                srcSet="https://img.freepik.com/premium-vector/best-season-sale-banner-design-template_2239-1175.jpg?w=826"
+                media="(min-width: 601px)"
+              />
+              {/* Fallback image */}
+              <img
+                loading="lazy"
+                className="d-block w-100 Img"
+                src="https://img.freepik.com/premium-vector/best-season-sale-banner-design-template_2239-1175.jpg?w=826"
+                alt="Second slide"
+              />
+            </picture>
+          </div>
+
+          <div className="carousel-item">
+            <picture>
+              {/* Small image for mobile screens */}
+              <source
+                srcSet="https://img.freepik.com/free-vector/flat-horizontal-sale-banner-template-with-photo_23-2149000923.jpg?w=400&t=st=1718019966~exp=1718020566~hmac=c8d8bfc6b35fbe0ba4d6e7870d5e59fd90b5e84e5129c7f67d1b15d250b02fd1"
+                media="(max-width: 600px)"
+              />
+              {/* Larger image for desktop and tablet */}
+              <source
+                srcSet="https://img.freepik.com/free-vector/flat-horizontal-sale-banner-template-with-photo_23-2149000923.jpg?w=826&t=st=1718019966~exp=1718020566~hmac=c8d8bfc6b35fbe0ba4d6e7870d5e59fd90b5e84e5129c7f67d1b15d250b02fd1"
+                media="(min-width: 601px)"
+              />
+              {/* Fallback image */}
+              <img
+                loading="lazy"
+                className="d-block w-100 Img"
+                src="https://img.freepik.com/free-vector/flat-horizontal-sale-banner-template-with-photo_23-2149000923.jpg?w=826&t=st=1718019966~exp=1718020566~hmac=c8d8bfc6b35fbe0ba4d6e7870d5e59fd90b5e84e5129c7f67d1b15d250b02fd1"
+                alt="Third slide"
+              />
+            </picture>
           </div>
         </div>
         <a
@@ -204,17 +238,18 @@ const Home = () => {
         )}
       </div>
       <div className="carddetails">
-        {!isLoading && data.slice(8, 12).map((ele, index) => (
-          <Card
-            img={getImage(ele._id)}
-            title={ele.title}
-            price={ele.price}
-            rating={ele.rating}
-            onclick={() => {
-              display(ele);
-            }}
-          />
-        ))}
+        {!isLoading &&
+          data.slice(8, 12).map((ele, index) => (
+            <Card
+              img={getImage(ele._id)}
+              title={ele.title}
+              price={ele.price}
+              rating={ele.rating}
+              onclick={() => {
+                display(ele);
+              }}
+            />
+          ))}
       </div>
       <div className="carddetails">
         {data.slice(12).map((ele, index) => (
