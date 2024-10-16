@@ -77,6 +77,7 @@ const Home = () => {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img
+            loading="lazy"
               className="d-block w-100 Img"
               src="Untitled.png"
               alt="First slide"
@@ -84,6 +85,7 @@ const Home = () => {
           </div>
           <div className="carousel-item ">
             <img
+              loading="lazy"
               className="d-block w-100 Img"
               src="https://img.freepik.com/premium-vector/best-season-sale-banner-design-template_2239-1175.jpg?w=826"
               alt="Second slide"
@@ -91,6 +93,7 @@ const Home = () => {
           </div>
           <div className="carousel-item">
             <img
+             loading="lazy"
               className="d-block w-100 Img"
               src="https://img.freepik.com/free-vector/flat-horizontal-sale-banner-template-with-photo_23-2149000923.jpg?w=826&t=st=1718019966~exp=1718020566~hmac=c8d8bfc6b35fbe0ba4d6e7870d5e59fd90b5e84e5129c7f67d1b15d250b02fd1"
               alt="Third slide"
