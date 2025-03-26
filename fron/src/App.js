@@ -21,6 +21,8 @@ function App() {
   const[cartvalue,setcartvalue]=useState();
   const [amount, setAmount] = useState(0); 
   const [vai,setvai]=useState(0);
+  const [ste,setste] = useState(0);
+
  
   return (
     <>
